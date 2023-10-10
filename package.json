@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "git-filter-repo": "^0.0.30",
-    "python": "^0.0.4"
-  }
-}
