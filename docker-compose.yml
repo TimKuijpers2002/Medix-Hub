@@ -25,4 +25,19 @@ services:
         volumes:
           - ~/.aspnet/https:/https:ro
         depends_on:
-          - mssql-server
+          - mssql-server 
+
+    reportqueryapi:
+            image: ${DOCKER_REGISTRY-}reportapi
+            build:
+              context: ./ReportQueryAPI/ReportQueryAPI
+              dockerfile: Dockerfile
+            ports:
+              - "7080:80"
+              - "7081:443"
+            environment:
+              - ASPNETCORE_ENVIRONMENT=Development
+              - ASPNETCORE_Kestrel__Certificates__Default__Password=PatientAPICertpa55w0rd!
+              - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/PatientAPI.pfx
+            volumes:
+              - ~/.aspnet/https:/https:ro

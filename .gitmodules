@@ -1,6 +1,3 @@
 [submodule "PatientAPI"]
 	path = PatientAPI
 	url = https://github.com/TimKuijpers2002/PatientAPI.git
-[submodule "ReportAPI"]
-	path = ReportAPI
-	url = https://github.com/TimKuijpers2002/ReportAPI.git
