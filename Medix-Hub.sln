@@ -7,6 +7,14 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientAPI", "PatientAPI\PatientAPI\PatientAPI.csproj", "{0A5B6169-5AEC-482B-A4E1-067DDE68526D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportQueryAPI", "ReportQueryAPI\ReportQueryAPI\ReportQueryAPI.csproj", "{64BD4393-78E4-48E3-B453-579EE8408691}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportQueryAPI.App", "ReportQueryAPI\ReportQueryAPI.App\ReportQueryAPI.App.csproj", "{058FB958-DF82-448E-A448-32C3FA1BC6B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportQueryAPI.DAL", "ReportQueryAPI\ReportQueryAPI.DAL\ReportQueryAPI.DAL.csproj", "{077BB605-AFBB-44B2-825C-CF4A7DE0F894}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportQueryAPI.Domain", "ReportQueryAPI\ReportQueryAPI.Domain\ReportQueryAPI.Domain.csproj", "{5D2B219F-0EBF-4CDC-BE84-B91BEE730BFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +29,22 @@ Global
 		{0A5B6169-5AEC-482B-A4E1-067DDE68526D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A5B6169-5AEC-482B-A4E1-067DDE68526D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A5B6169-5AEC-482B-A4E1-067DDE68526D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64BD4393-78E4-48E3-B453-579EE8408691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64BD4393-78E4-48E3-B453-579EE8408691}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64BD4393-78E4-48E3-B453-579EE8408691}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64BD4393-78E4-48E3-B453-579EE8408691}.Release|Any CPU.Build.0 = Release|Any CPU
+		{058FB958-DF82-448E-A448-32C3FA1BC6B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{058FB958-DF82-448E-A448-32C3FA1BC6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{058FB958-DF82-448E-A448-32C3FA1BC6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{058FB958-DF82-448E-A448-32C3FA1BC6B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{077BB605-AFBB-44B2-825C-CF4A7DE0F894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{077BB605-AFBB-44B2-825C-CF4A7DE0F894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{077BB605-AFBB-44B2-825C-CF4A7DE0F894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{077BB605-AFBB-44B2-825C-CF4A7DE0F894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D2B219F-0EBF-4CDC-BE84-B91BEE730BFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D2B219F-0EBF-4CDC-BE84-B91BEE730BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D2B219F-0EBF-4CDC-BE84-B91BEE730BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D2B219F-0EBF-4CDC-BE84-B91BEE730BFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
