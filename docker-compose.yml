@@ -28,7 +28,7 @@ services:
           - mssql-server 
 
     reportqueryapi:
-            image: ${DOCKER_REGISTRY-}reportapi
+            image: ${DOCKER_REGISTRY-}reportqueryapi
             build:
               context: ./ReportQueryAPI/ReportQueryAPI
               dockerfile: Dockerfile
