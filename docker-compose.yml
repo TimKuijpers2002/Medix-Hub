@@ -30,7 +30,7 @@ services:
     reportqueryapi:
             image: ${DOCKER_REGISTRY-}reportqueryapi
             build:
-              context: ./ReportQueryAPI/ReportQueryAPI
+              context: ./ReportQueryAPI
               dockerfile: Dockerfile
             ports:
               - "7080:80"
