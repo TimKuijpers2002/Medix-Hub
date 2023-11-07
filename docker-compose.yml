@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-    mssql-server:
+    mssql-patient-server:
         image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
             ACCEPT_EULA: "Y"
@@ -9,6 +9,15 @@ services:
             MSSQL_PID: "Express"
         ports:
           - "1433:1433"
+
+    mssql-report-server:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+            ACCEPT_EULA: "Y"
+            MSSQL_SA_PASSWORD: "PatientDbpa55w0rd!"
+            MSSQL_PID: "Express"
+        ports:
+          - "1434:1434"
 
     patientapi:
         image: ${DOCKER_REGISTRY-}patientapi
@@ -25,7 +34,7 @@ services:
         volumes:
           - ~/.aspnet/https:/https:ro
         depends_on:
-          - mssql-server 
+          - mssql-patient-server 
 
     reportqueryapi:
             image: ${DOCKER_REGISTRY-}reportqueryapi
