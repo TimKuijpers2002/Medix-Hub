@@ -14,10 +14,10 @@ services:
         image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
             ACCEPT_EULA: "Y"
-            MSSQL_SA_PASSWORD: "PatientDbpa55w0rd!"
+            MSSQL_SA_PASSWORD: "ReportQueryDbpa55w0rd!"
             MSSQL_PID: "Express"
         ports:
-          - "1434:1434"
+          - "1434:1433"
 
     patientapi:
         image: ${DOCKER_REGISTRY-}patientapi
