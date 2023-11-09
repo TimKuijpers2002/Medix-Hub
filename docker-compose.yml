@@ -22,7 +22,7 @@ services:
     patientapi:
         image: ${DOCKER_REGISTRY-}patientapi
         build:
-          context: ./PatientAPI/PatientAPI
+          context: ./PatientAPI
           dockerfile: Dockerfile
         ports:
           - "8080:80"
