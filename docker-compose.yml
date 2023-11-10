@@ -31,10 +31,6 @@ services:
           - ASPNETCORE_ENVIRONMENT=Development
           - ASPNETCORE_Kestrel__Certificates__Default__Password=PatientAPICertpa55w0rd!
           - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/PatientAPI.pfx
-          - SQL_SERVER=${SQL_SERVER}
-          - SQL_DATABASE=${SQL_DATABASE}
-          - SQL_USER=${SQL_USER}
-          - SQL_PASSWORD=${SQL_PASSWORD}
         volumes:
           - ~/.aspnet/https:/https:ro
         depends_on:
