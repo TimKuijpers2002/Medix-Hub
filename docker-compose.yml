@@ -20,10 +20,10 @@ services:
           - "1434:1433"
 
     patientapi:
-        image: ${DOCKER_REGISTRY-}patientapi
-        build:
-          context: ./PatientAPI
-          dockerfile: Dockerfile
+        image: timsku2002/patientapi:latest
+        #build:
+          #context: ./PatientAPI
+          #dockerfile: Dockerfile
         ports:
           - "8080:80"
           - "8081:443"
@@ -37,16 +37,16 @@ services:
           - mssql-patient-server 
 
     reportqueryapi:
-            image: ${DOCKER_REGISTRY-}reportqueryapi
-            build:
-              context: ./ReportQueryAPI
-              dockerfile: Dockerfile
-            ports:
-              - "7080:80"
-              - "7081:443"
-            environment:
-              - ASPNETCORE_ENVIRONMENT=Development
-              - ASPNETCORE_Kestrel__Certificates__Default__Password=PatientAPICertpa55w0rd!
-              - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/PatientAPI.pfx
-            volumes:
-              - ~/.aspnet/https:/https:ro
+        image: timsku2002/patientapi:latest
+        #build:
+            #context: ./ReportQueryAPI
+            #dockerfile: Dockerfile
+        ports:
+            - "7080:80"
+            - "7081:443"
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=PatientAPICertpa55w0rd!
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/PatientAPI.pfx
+        volumes:
+            - ~/.aspnet/https:/https:ro
