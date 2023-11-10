@@ -7,3 +7,6 @@
 [submodule "ReportQueryAPI"]
 	path = ReportQueryAPI
 	url = https://github.com/TimKuijpers2002/ReportQueryAPI.git
+[submodule "ReportCommandAPI"]
+	path = ReportCommandAPI
+	url = https://github.com/TimKuijpers2002/ReportCommandAPI.git
