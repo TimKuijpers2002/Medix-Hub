@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-    mssql-server:
+    mssql-patient-server:
         image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
             ACCEPT_EULA: "Y"
@@ -10,17 +10,45 @@ services:
         ports:
           - "1433:1433"
 
+    mssql-report-server:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+            ACCEPT_EULA: "Y"
+            MSSQL_SA_PASSWORD: "ReportQueryDbpa55w0rd!"
+            MSSQL_PID: "Express"
+        ports:
+          - "1434:1433"
+
     patientapi:
-        image: ${DOCKER_REGISTRY-}patientapi
-        build:
-          context: ./PatientAPI/PatientAPI
-          dockerfile: Dockerfile
+        image: timsku2002/patientapi:latest
+        #build:
+          #context: ./PatientAPI
+          #dockerfile: Dockerfile
         ports:
           - "8080:80"
           - "8081:443"
         environment:
           - ASPNETCORE_ENVIRONMENT=Development
-          - ASPNETCORE_URLS=https://+:443;http://+:80
+          - ASPNETCORE_Kestrel__Certificates__Default__Password=PatientAPICertpa55w0rd!
+          - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/PatientAPI.pfx
         volumes:
-          - ${USERPROFILE}\.asp.net\https:/root/.aspnet/https
-          - ${USERPROFILE}\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets
+          - ~/.aspnet/https:/https:ro
+        depends_on:
+          - mssql-patient-server 
+
+    reportqueryapi:
+        image: timsku2002/reportqueryapi:latest
+        #build:
+            #context: ./ReportQueryAPI
+            #dockerfile: Dockerfile
+        ports:
+            - "7080:80"
+            - "7081:443"
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=PatientAPICertpa55w0rd!
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/PatientAPI.pfx
+        volumes:
+            - ~/.aspnet/https:/https:ro
+        depends_on:
+          - mssql-report-server 
