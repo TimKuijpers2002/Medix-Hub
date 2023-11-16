@@ -10,3 +10,6 @@
 [submodule "ReportCommandAPI"]
 	path = ReportCommandAPI
 	url = https://github.com/TimKuijpers2002/ReportCommandAPI.git
+[submodule "Medix-Hub-Gateway"]
+	path = Medix-Hub-Gateway
+	url = https://github.com/TimKuijpers2002/Medix-Hub-Gateway.git
