@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
     mssql-patient-server:
+        container_name: mssql-patient-server
         image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
             ACCEPT_EULA: "Y"
@@ -9,8 +10,11 @@ services:
             MSSQL_PID: "Express"
         ports:
           - "1433:1433"
+        volumes:
+          - mssql-patient-data:/var/opt/mssql
 
     mssql-report-server:
+        container_name: mssql-report-server
         image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
             ACCEPT_EULA: "Y"
@@ -18,8 +22,19 @@ services:
             MSSQL_PID: "Express"
         ports:
           - "1434:1433"
+        volumes:
+          - mssql-report-data:/var/opt/mssql
+    
+    gateway:
+        container_name: gateway
+        build:
+          context: ./Medix-Hub-Gateway
+          dockerfile: Dockerfile
+        ports:
+          - "8000:8000"
 
     patientapi:
+        container_name: patientapi
         image: timsku2002/patientapi:latest
         #build:
           #context: ./PatientAPI
@@ -37,6 +52,7 @@ services:
           - mssql-patient-server 
 
     reportqueryapi:
+        container_name: reportqueryapi
         image: timsku2002/reportqueryapi:latest
         #build:
             #context: ./ReportQueryAPI
@@ -52,3 +68,7 @@ services:
             - ~/.aspnet/https:/https:ro
         depends_on:
           - mssql-report-server 
+
+volumes:
+  mssql-patient-data:
+  mssql-report-data:
