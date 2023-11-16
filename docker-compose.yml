@@ -62,12 +62,12 @@ services:
             - "7081:443"
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_Kestrel__Certificates__Default__Password=PatientAPICertpa55w0rd!
-            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/PatientAPI.pfx
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=ReportQueryAPICertpa55w0rd!
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ReportQueryAPI.pfx
         volumes:
             - ~/.aspnet/https:/https:ro
         depends_on:
-          - mssql-report-server 
+            - mssql-report-server 
 
 volumes:
   mssql-patient-data:
