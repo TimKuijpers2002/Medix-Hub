@@ -27,9 +27,10 @@ services:
     
     gateway:
         container_name: gateway
-        build:
-          context: ./Medix-Hub-Gateway
-          dockerfile: Dockerfile
+        image: timsku2002/gateway:latest
+        #build:
+          #context: ./Medix-Hub-Gateway
+          #dockerfile: Dockerfile
         ports:
           - "8000:8000"
 
