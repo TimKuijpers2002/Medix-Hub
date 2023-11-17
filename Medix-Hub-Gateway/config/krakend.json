@@ -1,0 +1,837 @@
+{
+    "$schema": "https://www.krakend.io/schema/v3.json",
+    "version": 3,
+    "name": "Medix Hub - API Gateway",
+    "timeout": "3000ms",
+    "cache_ttl": "300s",
+    "port": 8000,
+    "extra_config": {
+      "security/cors": {
+        "allow_origins": [
+          "*"
+        ],
+        "expose_headers": [
+          "Content-Length"
+        ],
+        "max_age": "12h",
+        "allow_methods": [
+          "GET",
+          "POST",
+          "PUT",
+          "DELETE",
+          "OPTIONS"
+        ]
+      },
+      "security/http": {
+        "allowed_hosts": [],
+        "content_type_nosniff": true,
+        "browser_xss_filter": true
+      },
+      "telemetry/logging": {
+        "level": "DEBUG",
+        "prefix": "[KRAKEND]",
+        "syslog": false,
+        "stdout": true,
+        "format": "default",
+        "syslog_facility": "local3"
+      }
+    },
+    "endpoints": [
+      {
+        "endpoint": "/api/v1/Forums",
+        "timeout": "20s",
+        "method": "GET",
+        "backend": [
+          {
+            "url_pattern": "/forums-service/api/Forums",
+            "is_collection": true,
+            "encoding": "json",
+            "method": "GET",
+            "headers_to_pass": [
+              "Authorization"
+            ],
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "disable_host_sanitize": false,
+            "host": [
+              "http://host.docker.internal:80"
+            ]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs/",
+            "disable_jwk_security": false,
+            "roles_key_is_nested": true,
+            "cache": true,
+            "roles_key": "realm_access.roles",
+            "roles": [
+              "Administrator"
+            ]
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Forums/{forumId}",
+        "method": "GET",
+        "output_encoding": "json",
+        "headers_to_pass": [
+          "Authorization"
+        ],
+        "backend": [
+          {
+            "url_pattern": "/forums-service/api/Forums/{forumId}",
+            "encoding": "json",
+            "sd": "static",
+            "method": "GET",
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "host": [
+              "http://host.docker.internal:80"
+            ],
+            "disable_host_sanitize": false
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "roles_key": "realm_access.roles",
+            "roles_key_is_nested": true,
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs",
+            "cache": true,
+            "disable_jwk_security": false,
+            "roles": [
+              "User",
+              "Administrator"
+            ]
+          },
+          "proxy": {
+            "sequential": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Forums",
+        "timeout": "20s",
+        "method": "POST",
+        "backend": [
+          {
+            "url_pattern": "/forums-service/api/Forums",
+            "encoding": "json",
+            "method": "POST",
+            "headers_to_pass": [
+              "Authorization"
+            ],
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "disable_host_sanitize": false,
+            "host": [
+              "http://host.docker.internal:80"
+            ]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs/",
+            "disable_jwk_security": false,
+            "roles_key_is_nested": true,
+            "cache": true,
+            "roles_key": "realm_access.roles",
+            "roles": [
+              "Administrator"
+            ]
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Forums/{forumId}",
+        "method": "DELETE",
+        "output_encoding": "json",
+        "headers_to_pass": [
+          "Authorization"
+        ],
+        "backend": [
+          {
+            "url_pattern": "/forums-service/api/Forums/{forumId}",
+            "encoding": "json",
+            "sd": "static",
+            "method": "DELETE",
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "host": [
+              "http://host.docker.internal:80"
+            ],
+            "disable_host_sanitize": false
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "roles_key": "realm_access.roles",
+            "roles_key_is_nested": true,
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs",
+            "cache": true,
+            "disable_jwk_security": false,
+            "roles": [
+              "Administrator"
+            ]
+          },
+          "proxy": {
+            "sequential": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Forums",
+        "method": "PUT",
+        "backend": [
+          {
+            "url_pattern": "/forums-service/api/Forums",
+            "encoding": "json",
+            "method": "PUT",
+            "headers_to_pass": [
+              "Authorization"
+            ],
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "disable_host_sanitize": false,
+            "host": [
+              "http://host.docker.internal:80/"
+            ]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs/",
+            "disable_jwk_security": false,
+            "roles_key_is_nested": true,
+            "cache": true,
+            "roles_key": "realm_access.roles",
+            "roles": [
+              "Administrator"
+            ]
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Movies",
+        "timeout": "20s",
+        "method": "GET",
+        "backend": [
+          {
+            "url_pattern": "/movies-service/api/Movies",
+            "is_collection": true,
+            "encoding": "json",
+            "method": "GET",
+            "headers_to_pass": [
+              "Authorization"
+            ],
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "disable_host_sanitize": false,
+            "host": [
+              "http://host.docker.internal:80"
+            ]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs/",
+            "disable_jwk_security": false,
+            "roles_key_is_nested": true,
+            "cache": true,
+            "roles_key": "realm_access.roles",
+            "roles": [
+              "Administrator"
+            ]
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Movies/{movieId}",
+        "method": "GET",
+        "output_encoding": "json",
+        "error": {
+          "status": 404,
+          "headers": {
+              "Content-Type": "application/json"
+          },
+          "body": {"error":"No movie found."}
+        },
+        "headers_to_pass": [
+          "Authorization"
+        ],
+        "backend": [
+          {
+            "url_pattern": "/movies-service/api/Movies/{movieId}",
+            "encoding": "json",
+            "sd": "static",
+            "method": "GET",
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "host": [
+              "http://host.docker.internal:80"
+            ],
+            "disable_host_sanitize": false
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "roles_key": "realm_access.roles",
+            "roles_key_is_nested": true,
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs",
+            "cache": true,
+            "disable_jwk_security": false,
+            "roles": [
+              "Administrator"
+            ]
+          },
+          "proxy": {
+            "sequential": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Movies",
+        "timeout": "20s",
+        "method": "POST",
+        "backend": [
+          {
+            "url_pattern": "/movies-service/api/Movies",
+            "encoding": "json",
+            "method": "POST",
+            "response": {
+              "status": 200
+          },
+            "headers_to_pass": [
+              "Authorization"
+            ],
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "disable_host_sanitize": false,
+            "host": [
+              "http://host.docker.internal:80"
+            ]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs/",
+            "disable_jwk_security": false,
+            "roles_key_is_nested": true,
+            "cache": true,
+            "roles_key": "realm_access.roles",
+            "roles": [
+              "Administrator"
+            ]
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Movies/{movieId}",
+        "method": "DELETE",
+        "output_encoding": "json",
+        "response": {
+          "status": 200
+      },
+      "error": {
+        "status": 404,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": {"error":"No movie found."}
+      },
+        "headers_to_pass": [
+          "Authorization"
+        ],
+        "backend": [
+          {
+            "url_pattern": "/movies-service/api/Movies/{movieId}",
+            "encoding": "json",
+            "sd": "static",
+            "method": "DELETE",
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "host": [
+              "http://host.docker.internal:80"
+            ],
+            "disable_host_sanitize": false
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "roles_key": "realm_access.roles",
+            "roles_key_is_nested": true,
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs",
+            "cache": true,
+            "disable_jwk_security": false,
+            "roles": [
+              "Administrator"
+            ]
+          },
+          "proxy": {
+            "sequential": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Movies",
+        "method": "PUT",
+        "backend": [
+          {
+            "url_pattern": "/movies-service/api/Movies",
+            "encoding": "json",
+            "method": "PUT",
+            "headers_to_pass": [
+              "Authorization"
+            ],
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "disable_host_sanitize": false,
+            "host": [
+              "http://host.docker.internal:80/"
+            ]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs/",
+            "disable_jwk_security": false,
+            "roles_key_is_nested": true,
+            "cache": true,
+            "roles_key": "realm_access.roles",
+            "roles": [
+              "Administrator"
+            ]
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Threads",
+        "timeout": "20s",
+        "method": "GET",
+        "backend": [
+          {
+            "url_pattern": "/threads-service/api/Threads",
+            "is_collection": true,
+            "encoding": "json",
+            "method": "GET",
+            "headers_to_pass": [
+              "Authorization"
+            ],
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "disable_host_sanitize": false,
+            "host": [
+              "http://host.docker.internal:80"
+            ]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs/",
+            "disable_jwk_security": false,
+            "roles_key_is_nested": true,
+            "cache": true,
+            "roles_key": "realm_access.roles",
+            "roles": [
+              "Administrator"
+            ]
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Threads/{threadId}",
+        "method": "GET",
+        "output_encoding": "json",
+        "error": {
+          "status": 404,
+          "headers": {
+              "Content-Type": "application/json"
+          },
+          "body": {"error":"No thread found."}
+        },
+        "headers_to_pass": [
+          "Authorization"
+        ],
+        "backend": [
+          {
+            "url_pattern": "/threads-service/api/Threads/{threadId}",
+            "encoding": "json",
+            "sd": "static",
+            "method": "GET",
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "host": [
+              "http://host.docker.internal:80"
+            ],
+            "disable_host_sanitize": false
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "roles_key": "realm_access.roles",
+            "roles_key_is_nested": true,
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs",
+            "cache": true,
+            "disable_jwk_security": false,
+            "roles": [
+              "User",
+              "Administrator"
+            ]
+          },
+          "proxy": {
+            "sequential": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Threads",
+        "timeout": "20s",
+        "method": "POST",
+        "backend": [
+          {
+            "url_pattern": "/threads-service/api/Threads",
+            "encoding": "json",
+            "method": "POST",
+            "response": {
+              "status": 200
+          },
+            "headers_to_pass": [
+              "Authorization"
+            ],
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "disable_host_sanitize": false,
+            "host": [
+              "http://host.docker.internal:80"
+            ]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs/",
+            "disable_jwk_security": false,
+            "roles_key_is_nested": true,
+            "cache": true,
+            "roles_key": "realm_access.roles",
+            "roles": [
+              "User",
+              "Administrator"
+            ]
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Threads/{threadId}",
+        "method": "DELETE",
+        "output_encoding": "json",
+        "response": {
+          "status": 200
+      },
+      "error": {
+        "status": 404,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": {"error":"No thread found."}
+      },
+        "headers_to_pass": [
+          "Authorization"
+        ],
+        "backend": [
+          {
+            "url_pattern": "/threads-service/api/Threads/{threadId}",
+            "encoding": "json",
+            "sd": "static",
+            "method": "DELETE",
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "host": [
+              "http://host.docker.internal:80"
+            ],
+            "disable_host_sanitize": false
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "roles_key": "realm_access.roles",
+            "roles_key_is_nested": true,
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs",
+            "cache": true,
+            "disable_jwk_security": false,
+            "roles": [
+              "Administrator",
+              "User"
+            ]
+          },
+          "proxy": {
+            "sequential": true
+          }
+        }
+      },
+      {
+        "endpoint": "/api/v1/Threads/{threadId}",
+        "method": "PUT",
+        "error": {
+          "status": 404,
+          "headers": {
+              "Content-Type": "application/json"
+          },
+          "body": {"error":"No thread found."}
+        },
+        "backend": [
+          {
+            "url_pattern": "/threads-service/api/Threads/{threadId}",
+            "encoding": "json",
+            "method": "PUT",
+            "headers_to_pass": [
+              "Authorization"
+            ],
+            "extra_config": {
+              "qos/circuit-breaker": {
+                "interval": 60,
+                "name": "circuit-breaker-1",
+                "timeout": 10,
+                "max_errors": 15,
+                "log_status_change": true
+              },
+              "auth/client-credentials": {
+                "client_id": "kinoroom",
+                "token_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/token",
+                "client_secret": "M7guSeP8agIWOKAfzqOAcDO1iCA9M28F",
+                "scopes": "profile,email"
+              }
+            },
+            "disable_host_sanitize": false,
+            "host": [
+              "http://host.docker.internal:80"
+            ]
+          }
+        ],
+        "extra_config": {
+          "auth/validator": {
+            "alg": "RS256",
+            "issuer": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom",
+            "jwk_url": "https://lemur-0.cloud-iam.com/auth/realms/kinoroom/protocol/openid-connect/certs/",
+            "disable_jwk_security": false,
+            "roles_key_is_nested": true,
+            "cache": true,
+            "roles_key": "realm_access.roles",
+            "roles": [
+              "User",
+              "Administrator"
+            ]
+          }
+        }
+      }
+    ]
+  }
