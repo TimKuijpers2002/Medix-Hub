@@ -36,7 +36,7 @@ services:
 
     patientapi:
         container_name: patientapi
-        image: timsku2002/patientapi:latest
+        image: timsku2002/patientapi:dev
         #build:
           #context: ./PatientAPI
           #dockerfile: Dockerfile
