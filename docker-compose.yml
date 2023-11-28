@@ -24,6 +24,17 @@ services:
           - "1434:1433"
         volumes:
           - mssql-report-data:/var/opt/mssql
+
+    cassandra-report-server:
+        image: cassandra:latest
+        container_name: cassandra-report-server
+        ports:
+          - "9042:9042"
+        environment:
+          - CASSANDRA_SEEDS=cassandra-report-server
+          - CASSANDRA_PASSWORD=ReportCommandDbpa55w0rd!
+        volumes:
+          - ./cassandra_data:/var/lib/cassandra
     
     gateway:
         container_name: gateway
@@ -70,6 +81,25 @@ services:
         depends_on:
             - mssql-report-server 
 
+    reportcommandapi:
+        container_name: reportcommandapi
+        image: timsku2002/reportcommandapi:latest
+        #build:
+            #context: ./ReportCommandAPI
+            #dockerfile: Dockerfile
+        ports:
+            - "6080:80"
+            - "6081:443"
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=ReportCommandAPICertpa55w0rd!
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ReportCommandAPI.pfx
+        volumes:
+            - ~/.aspnet/https:/https:ro
+        depends_on:
+            - cassandra-report-server 
+
 volumes:
   mssql-patient-data:
   mssql-report-data:
+  cassandra-report-data:  
