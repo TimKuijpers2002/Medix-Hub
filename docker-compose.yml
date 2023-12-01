@@ -35,6 +35,7 @@ services:
           - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
           - CASSANDRA_DC=europe_west
           - CASSANDRA_RACK=rack1
+          - CASSANDRA_KEYSPACE=medix-hub-context
         volumes:
           - ./cassandra_data:/var/lib/cassandra
     
