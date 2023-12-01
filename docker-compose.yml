@@ -68,7 +68,7 @@ services:
 
     reportqueryapi:
         container_name: reportqueryapi
-        image: timsku2002/reportqueryapi:latest
+        image: timsku2002/reportqueryapi:dev
         #build:
             #context: ./ReportQueryAPI
             #dockerfile: Dockerfile
@@ -86,7 +86,7 @@ services:
 
     reportcommandapi:
         container_name: reportcommandapi
-        image: timsku2002/reportcommandapi:latest
+        image: timsku2002/reportcommandapi:dev
         #build:
             #context: ./ReportCommandAPI
             #dockerfile: Dockerfile
