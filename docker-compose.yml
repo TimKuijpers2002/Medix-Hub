@@ -31,8 +31,10 @@ services:
         ports:
           - "9042:9042"
         environment:
-          - CASSANDRA_SEEDS=cassandra-report-server
-          - CASSANDRA_PASSWORD=ReportCommandDbpa55w0rd!
+          - CASSANDRA_CLUSTER_NAME=medical_report_cluster
+          - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+          - CASSANDRA_DC=europe_west
+          - CASSANDRA_RACK=rack1
         volumes:
           - ./cassandra_data:/var/lib/cassandra
     
