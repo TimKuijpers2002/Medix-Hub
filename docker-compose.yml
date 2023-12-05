@@ -25,19 +25,19 @@ services:
         volumes:
           - mssql-report-data:/var/opt/mssql
 
-    cassandra-report-server:
-        image: cassandra:latest
-        container_name: cassandra-report-server
-        ports:
-          - "9042:9042"
-        environment:
-          - CASSANDRA_CLUSTER_NAME=medical_report_cluster
-          - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-          - CASSANDRA_DC=europe_west
-          - CASSANDRA_RACK=rack1
-          - CASSANDRA_KEYSPACE=medix-hub-context
-        volumes:
-          - cassandra-report-data:/var/opt/cassandra
+   # cassandra-report-server:
+      #  image: cassandra:latest
+       # container_name: cassandra-report-server
+       # ports:
+       #   - "9042:9042"
+       # environment:
+        #  - CASSANDRA_CLUSTER_NAME=medical_report_cluster
+        #  - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+        #  - CASSANDRA_DC=europe_west
+        #  - CASSANDRA_RACK=rack1
+        #  - CASSANDRA_KEYSPACE=medix-hub-context
+        #volumes:
+         # - cassandra-report-data:/var/opt/cassandra
     
     gateway:
         container_name: gateway
@@ -99,8 +99,8 @@ services:
             - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ReportCommandAPI.pfx
         volumes:
             - ~/.aspnet/https:/https:ro
-        depends_on:
-            - cassandra-report-server 
+       # depends_on:
+           # - cassandra-report-server 
 
 volumes:
   mssql-patient-data:
