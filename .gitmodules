@@ -13,3 +13,6 @@
 [submodule "Medix-Hub-Gateway"]
 	path = Medix-Hub-Gateway
 	url = https://github.com/TimKuijpers2002/Medix-Hub-Gateway.git
+[submodule "Medix-Hub-Frontend"]
+	path = Medix-Hub-Frontend
+	url = https://github.com/TimKuijpers2002/Medix-Hub-Frontend.git
