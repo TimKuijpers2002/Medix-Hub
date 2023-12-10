@@ -102,6 +102,64 @@ GRCP method | API endpoints             | Description
  PUT        | /grpc/v1/report            | Update report
  DELETE     | /grpc/v1/report/{id}       | Delete report
 
+## Cloning & Local instance
+
+### Prerequisites:
+- Docker installed + Docker Desktop
+- Visual Studio 2022 edition (for all the APIs)
+- Visual Studio Code (for the Gateway and Frontend)
+
+<br>
+
+### 1. Clone the main GitHub repo (Medix-Hub):
+
+```
+git clone https://github.com/your-username/Medix-Hub.git
+cd Medix-Hub
+```
+Then because of the submodules within the repository you have to init and update those:
+```
+git submodule init
+git submodule update
+```
+
+<br>
+
+### 2. Install Required Dependencies:
+- Open Visual Studio 2022 and load the solution for Medix-Hub (this also opens the submodules + their branches).
+- Install any necessary dependencies using the package manager or the integrated tools in Visual Studio.
+
+<br>
+
+### 3. Choose Startup Method:
+#### Option 1: Docker Compose
+- Navigate to the root directory (Medix-Hub) in the terminal.
+- Run the following command:
+```
+docker-compose up
+```
+
+#### Option 2: Startup method
+- Navigate to the top of Visual Studio 2022 and press the dropdown next to the run button.
+- Select docker-compose as your desired option.
+
+<br>
+
+### 4. Open Docker Desktop and Check for Errors:
+- Open Docker Desktop to monitor the containers.
+- Ensure that there are no errors or issues with the containers.
+- If there are errors, check the logs and troubleshoot accordingly.
+
+<br>
+
+### 5. Additional Steps (if needed):
+- Check each API and Gateway's README files for any specific instructions.
+- Configure any environment variables or settings required for local development.
+- Execute migrations if the automated process failed.
+- Change the docker-image tags in the docker-compose for the desired environment (dev, accept or latest).
+
+<br>
+
 ## Contributing
 Pull requests are not desired. This was a project for school within my study at Fontys HBO-ICT Software engineering.
 
