@@ -10,8 +10,8 @@ services:
             MSSQL_PID: "Express"
         ports:
           - "1433:1433"
-        volumes:
-          - mssql-patient-data:/var/opt/mssql
+        #volumes:
+#- mssql-patient-data:/var/opt/mssql
 
     mssql-report-server:
         container_name: mssql-report-server
