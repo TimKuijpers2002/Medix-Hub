@@ -11,6 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportQueryAPI", "ReportQue
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportCommandAPI", "ReportCommandAPI\ReportCommandAPI\ReportCommandAPI.csproj", "{EA167223-6846-4A4F-A7B3-E16893C7818E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{021BC4D9-C06F-4241-9116-E12C0B3691F1}"
+	ProjectSection(SolutionItems) = preProject
+		deployment.yml = deployment.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
