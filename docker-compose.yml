@@ -25,7 +25,7 @@ services:
 
     gateway:
         container_name: gateway
-        image: timsku2002/gateway:latest
+        image: timsku2002/gateway:dev
         #build:
           #context: ./Medix-Hub-Gateway
           #dockerfile: Dockerfile
