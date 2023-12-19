@@ -52,7 +52,7 @@ services:
 
     reportqueryapi:
         container_name: reportqueryapi
-        image: timsku2002/reportqueryapi:dev
+        image: timsku2002/reportqueryapi:latest
         #build:
             #context: ./ReportQueryAPI
             #dockerfile: Dockerfile
