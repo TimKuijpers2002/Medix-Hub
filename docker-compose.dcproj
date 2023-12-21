@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include=".dockerignore" />
+    <None Include="config\prometheus.yml" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
