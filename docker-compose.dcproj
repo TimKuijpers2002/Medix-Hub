@@ -7,6 +7,12 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include=".dockerignore" />
+    <None Include="config\prometheus-clusterRole.yml" />
+    <None Include="config\grafana-datasource.yml" />
+    <None Include="config\grafana-deployment.yml" />
+    <None Include="config\grafana-service.yml" />
+    <None Include="config\prometheus-service.yml" />
+    <None Include="config\prometheus-deployment.yml" />
     <None Include="config\prometheus.yml" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
