@@ -10,8 +10,6 @@ services:
             MSSQL_PID: "Express"
         ports:
           - "1433:1433"
-        volumes:
-          - mssql-patient-data:/var/opt/mssql
 
     mssql-report-server:
         container_name: mssql-report-server
@@ -25,23 +23,9 @@ services:
         volumes:
           - mssql-report-data:/var/opt/mssql
 
-   # cassandra-report-server:
-      #  image: cassandra:latest
-       # container_name: cassandra-report-server
-       # ports:
-       #   - "9042:9042"
-       # environment:
-        #  - CASSANDRA_CLUSTER_NAME=medical_report_cluster
-        #  - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-        #  - CASSANDRA_DC=europe_west
-        #  - CASSANDRA_RACK=rack1
-        #  - CASSANDRA_KEYSPACE=medix-hub-context
-        #volumes:
-         # - cassandra-report-data:/var/opt/cassandra
-    
     gateway:
         container_name: gateway
-        image: timsku2002/gateway:latest
+        image: timsku2002/gateway:dev
         #build:
           #context: ./Medix-Hub-Gateway
           #dockerfile: Dockerfile
@@ -68,7 +52,7 @@ services:
 
     reportqueryapi:
         container_name: reportqueryapi
-        image: timsku2002/reportqueryapi:dev
+        image: timsku2002/reportqueryapi:latest
         #build:
             #context: ./ReportQueryAPI
             #dockerfile: Dockerfile
@@ -99,10 +83,31 @@ services:
             - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/ReportCommandAPI.pfx
         volumes:
             - ~/.aspnet/https:/https:ro
-       # depends_on:
-           # - cassandra-report-server 
+
+    prometheus:
+        image: prom/prometheus:v2.37.9
+        container_name: prometheus
+        ports:
+          - 9090:9090
+        command: "--config.file=/etc/prometheus/prometheus.yml"
+        volumes:
+          - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+          - ./data:/prometheus
+        restart: unless-stopped
+
+    grafana:
+        image: grafana/grafana-oss:latest
+        container_name: grafana
+        ports:
+          - "3000:3000"
+        volumes:
+          - grafana-data:/var/lib/grafana
+        restart: unless-stopped
 
 volumes:
   mssql-patient-data:
   mssql-report-data:
-  cassandra-report-data:  
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
